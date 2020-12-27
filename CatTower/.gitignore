@@ -501,8 +501,8 @@ InitTestScene*.unity
 .ionide
 
 ### vscode ###
-!.vscode/settings.json
-!.vscode/extensions.json
+.vscode/settings.json
+.vscode/extensions.json
 
 ### VisualStudio ###
 

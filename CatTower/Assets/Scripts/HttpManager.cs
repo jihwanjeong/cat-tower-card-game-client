@@ -8,19 +8,8 @@ using System.Text;
 namespace CatTower
 {
 
-    public class HttpManager : MonoBehaviour
+    public class HttpManager : SingletonGameObject<HttpManager>
     {
-        // TODO: 싱글턴 코드 변경
-        private HttpManager() { }
-        private HttpManager instance;
-        public HttpManager Instance
-        {
-            get
-            {
-                if (instance == null) instance = new HttpManager();
-                return instance;
-            }
-        }
          public void Get<TResponse>(string url, Action<TResponse> responseHandler)
         {
             StartCoroutine(CoroutineGet<TResponse>(url, responseHandler));

@@ -25,5 +25,10 @@ namespace CatTower
                 return _instance;
             }
         }
+
+        void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 }

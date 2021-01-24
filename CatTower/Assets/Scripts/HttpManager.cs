@@ -7,24 +7,25 @@ using System.Text;
 
 namespace CatTower
 {
-
     public class HttpManager : SingletonGameObject<HttpManager>
     {
-         public void Get<TResponse>(string url, Action<TResponse> responseHandler)
+        private string _url = "http://localhost:3000";
+
+         public void Get<TResponse>(string path, Action<TResponse> responseHandler)
         {
-            StartCoroutine(CoroutineGet<TResponse>(url, responseHandler));
+            StartCoroutine(CoroutineGet<TResponse>(path, responseHandler));
         }
 
-        public void Post<TRequest, TResponse>(string url, TRequest request, Action<TResponse> responseHandler)
+        public void Post<TRequest, TResponse>(string path, TRequest request, Action<TResponse> responseHandler)
         {
-            StartCoroutine(CoroutinePost<TRequest, TResponse>(url, request, responseHandler));
+            StartCoroutine(CoroutinePost<TRequest, TResponse>(path, request, responseHandler));
         }
 
-        private IEnumerator CoroutineGet<TResponse>(string url, Action<TResponse> responseHandler)
+        private IEnumerator CoroutineGet<TResponse>(string path, Action<TResponse> responseHandler)
         {
             
             UnityWebRequest webRequest = new UnityWebRequest();
-            webRequest.url = url;
+            webRequest.url = _url + path;
             webRequest.method = UnityWebRequest.kHttpVerbGET;
             webRequest.downloadHandler = new DownloadHandlerBuffer();
             yield return webRequest.SendWebRequest();
@@ -44,11 +45,12 @@ namespace CatTower
             yield return null;
         }
         
-        private IEnumerator CoroutinePost<TRequest, TResponse>(string url, TRequest request, Action<TResponse> responseHandler)
+        private IEnumerator CoroutinePost<TRequest, TResponse>(string path, TRequest request, Action<TResponse> responseHandler)
         {
             var json = JsonUtility.ToJson(request);
+            Debug.Log("request:\n" + json);
             UnityWebRequest webRequest = new UnityWebRequest();
-            webRequest.url = url;
+            webRequest.url = _url + path;
             webRequest.method = UnityWebRequest.kHttpVerbPOST;
             webRequest.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(json));
             webRequest.uploadHandler.contentType = "application/json";
@@ -66,6 +68,7 @@ namespace CatTower
                 yield break;
             }
             var responseBody = webRequest.downloadHandler.text;
+            Debug.Log("response:\n" + responseBody);
             if (responseHandler != null) responseHandler(JsonUtility.FromJson<TResponse>(responseBody));
             yield return null;
         }

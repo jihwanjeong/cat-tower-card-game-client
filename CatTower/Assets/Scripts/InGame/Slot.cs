@@ -6,14 +6,15 @@ using UnityEngine.EventSystems;
 namespace CatTower
 {
 
-    public class Slot : MonoBehaviour, IDropHandler
+    public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
     {
         public int index;
-        public Card.Breed br;
-        // Start is called before the first frame update
+        public Breed br;
+        public Card card;
+        
         void Start()
         {
-            Managers mg = Managers.GetInstance();            
+            InGameManagers mg = InGameManagers.GetInstance();            
         }
 
         // Update is called once per frame
@@ -22,9 +23,25 @@ namespace CatTower
 
         }
 
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void OnDrop(PointerEventData eventData)
         {
-            
+
         }
+
     }
 }

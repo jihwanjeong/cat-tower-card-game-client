@@ -4,21 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace CatTower {
-    public class Card : MonoBehaviour
+    public enum Breed
     {
-        public  Breed br;
-        public Image catImage;
+        Siamese,
+        RussianBlue,
+        Mackerel,
+        Persian,
+        Ragdoll,
+        Savanna,
+        ThreeColor,
+        Odd
+    }
+
+    [System.Serializable]
+    public class Card
+    {
+        public Breed br;
+        public Sprite catImage;
         public bool special;
-        public enum Breed
-        {
-            Siamese,
-            RussianBlue,
-            Mackerel,
-            Persian,
-            Ragdoll,
-            Savanna,
-            ThreeColor,
-            Odd
-        } 
     }
 }

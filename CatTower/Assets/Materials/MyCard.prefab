@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myImage: {fileID: 5222962578036433922}
-  card:
-    br: 0
-    catImage: {fileID: 0}
-    special: 0
+  index: 0
+  mySlot: {fileID: 0}
+  gameObj: {fileID: 0}
+  myCard: {fileID: 5222962578036433950}
   dragAble: 1

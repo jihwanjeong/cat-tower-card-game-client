@@ -1,21 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace CatTower
 {
-
-    public class Slot : MonoBehaviour
+    public class SlotManager : MonoBehaviour
     {
-        
-        public int index;
-        public Breed myBr;
-        public Card card;
-        
+        public int[] arrSlotIndex = new int[57];
+        public Breed[] arrSlotBreed = new Breed[57];
+        // Start is called before the first frame update
         void Start()
         {
-            InGameManagers mg = InGameManagers.GetInstance();            
+
         }
 
         // Update is called once per frame
@@ -23,6 +19,5 @@ namespace CatTower
         {
 
         }
-
     }
 }

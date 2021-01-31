@@ -10,10 +10,17 @@ namespace CatTower
     {
 
         public static Vector2 defaultposition;
-        public Image myImage;
         public static Sprite mySprite;
-        public bool dragAble;
 
+        public Image myImage;
+        public int index;
+        public static Breed br;
+
+        public Slot mySlot;
+        public GameObject gameObj;
+        public bool dragAble;
+   
+        
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (dragAble == false)
@@ -24,6 +31,7 @@ namespace CatTower
             {
                 defaultposition = this.transform.position;
                 mySprite = this.GetComponent<MyCard>().card.catImage;
+                br = this.GetComponent<MyCard>().card.br;
             }
         }
 
@@ -42,13 +50,34 @@ namespace CatTower
 
         public void OnDrop(PointerEventData eventData)
         {
-            if(dragAble == true)
+            if(dragAble == false)
             {
-                return;
+                if (index < 8)
+                {
+                    if (gameObj.GetComponent<SlotManager>().arrSlotIndex[index] != 0)
+                        return;
+                    mySlot.myBr = br;
+                    myImage.sprite = mySprite;
+                    gameObj.GetComponent<SlotManager>().arrSlotIndex[index] = 1;
+                    gameObj.GetComponent<SlotManager>().arrSlotBreed[index] = mySlot.myBr;
+                }
+                else
+                {
+                    if (gameObj.GetComponent<SlotManager>().arrSlotIndex[index-8] == 1 && gameObj.GetComponent<SlotManager>().arrSlotIndex[index-7] == 1 && (gameObj.GetComponent<SlotManager>().arrSlotBreed[index-8] == br || gameObj.GetComponent<SlotManager>().arrSlotBreed[index - 7] == br))
+                    {
+                        if (gameObj.GetComponent<SlotManager>().arrSlotIndex[index] != 0)
+                            return;
+                        mySlot.myBr = br;
+                        myImage.sprite = mySprite;
+                        gameObj.GetComponent<SlotManager>().arrSlotBreed[index] = mySlot.myBr;
+                        gameObj.GetComponent<SlotManager>().arrSlotIndex[index] = 1;
+                    }
+                    else return;
+                }
             }
             else
-            {
-                myImage.sprite = mySprite;
+            { 
+                return;
             }
         }
 
